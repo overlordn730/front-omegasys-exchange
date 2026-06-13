@@ -1,0 +1,1 @@
+export const API_BASE_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || "https://localhost:5000";
