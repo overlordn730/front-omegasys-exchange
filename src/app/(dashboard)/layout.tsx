@@ -2,19 +2,22 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { useAuthStore } from "@/stores/authStore";
 
-export default function HomePage() {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
-    if (isAuthenticated()) {
-      router.push("/dashboard");
-    } else {
+    if (!isAuthenticated()) {
       router.push("/login");
     }
   }, [isAuthenticated, router]);
 
-  return null;
+  if (!isAuthenticated()) {
+    return null;
+  }
+
+  return <DashboardLayout>{children}</DashboardLayout>;
 }
