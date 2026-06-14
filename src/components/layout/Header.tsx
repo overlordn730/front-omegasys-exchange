@@ -1,8 +1,7 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import { Moon, Sun, LogOut, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,9 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/authStore";
 import { authService } from "@/services/authService";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
   const router = useRouter();
   const email = useAuthStore((state) => state.email);
   const role = useAuthStore((state) => state.role);
@@ -38,14 +37,7 @@ export function Header() {
       <div />
 
       <div className="flex items-center gap-2">
-        <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="relative inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-        >
-          <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Cambiar tema</span>
-        </button>
+        <ThemeToggle />
 
         <DropdownMenu>
           <DropdownMenuTrigger
